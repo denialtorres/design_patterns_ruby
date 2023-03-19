@@ -29,3 +29,9 @@ report.output_report
 - We can get data from the `context` to the strategy by having the context object pass a reference to itself to the strategy object.
 
 - The `strategy object` can then call methods on the `context` to get at the data it needs
+
+- Recasting our report formatting example to use a `Proc` Strategy is trivial. the only changes we need to make to the `Report` class are to add an ampersand to pick up any block that is passed to the `initialize` method and to rename the method that we call from `output_report` to `call`
+
+- The `Strategy Pattern` is a delegation-based approach to solving the same problem as the `Template Method Pattern`. instead of teasing out variable parts of your algorithm and pushing them down into subclasses, you simply implement each version of your algorithm as a separate object
+
+- Ruby code blocks, which are essentially code wrapped up in an instant object (the `Proc` object), are wonderfully useful for creating quick, albeit, simple, stragey objects

@@ -1,11 +1,5 @@
-class Formatter
-  def output_report(context)
-    raise "Abstract method called"
-  end
-end
-
 # strategy objects
-class HTMLFormatter < Formatter
+class HTMLFormatter
   def output_report(context)
     puts "<html>"
     puts "<head>"
