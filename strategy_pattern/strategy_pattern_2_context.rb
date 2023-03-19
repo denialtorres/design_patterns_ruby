@@ -1,18 +1,18 @@
 class Formatter
-  def output_report(title, text)
+  def output_report(context)
     raise "Abstract method called"
   end
 end
 
 # strategy objects
 class HTMLFormatter < Formatter
-  def output_report(title, text)
+  def output_report(context)
     puts "<html>"
     puts "<head>"
-    puts "<title> #{title} </title>"
+    puts "<title> #{context.title} </title>"
     puts "</head>"
     puts "<body>"
-    text.each do |line|
+    context.text.each do |line|
       puts "<p>#{line}</p>"
     end
     puts "</body>"
@@ -22,9 +22,9 @@ end
 
 # strategy objects
 class PlainTextFormatter
-  def output_report(title, text)
-    puts "*** #{title} ***"
-    text.each do |line|
+  def output_report(context)
+    puts "*** #{context.title} ***"
+    context.text.each do |line|
       puts line
     end
   end
@@ -41,7 +41,10 @@ class Report
   end
 
   def output_report
-    @formatter.output_report(@title, @text)
+    # here report passess a refernce to itself -> to the formatting strategy
+    # then the formatter class calls the new title and text methods to get the data
+    # it needs
+    @formatter.output_report(self)
   end
 end
 
@@ -49,12 +52,4 @@ report = Report.new(HTMLFormatter.new)
 report.output_report
 
 report = Report.new(PlainTextFormatter.new)
-report.output_report
-
-
-### swamp the formatter at runtime
-report = Report.new(HTMLFormatter.new)
-report.output_report
-
-report.formatter = PlainTextFormatter.new
 report.output_report

@@ -7,3 +7,25 @@
 - In our first example, both of the strategy objects support `output_report` method, given that all of the strategy objects look alike from the outside, the user of the strategy - called the **context** class - can treat the strategies like interchangeable parts
 
 ![enter image description here](https://i.imgur.com/Tfqw37W.png)
+
+- One of our formatting strategies produces HTML while the other produces Plain Text
+
+- If we were doing tax calculations, we might have use the `Strategy Pattern` for state income tax calculations: one strategy to compute taxes for residents in Virginia, and another to do calculations according to the California tax code
+
+- we can achieve better separation of concerns by pulling out a set of strategies from a class. By using the strategy pattern, we relieve the `Report` class of any responsibility for or knowledge of the report file format
+
+- `Strategy Pattern` is based on composition and delegation, rather than on inheritance, it is easy to switch strategies at runtime. We simpley swamp out the strategy object
+
+```
+report = Report.new(HTMLFormatter.new)
+report.output_report
+
+report.formatter = PlainTextFormatter.new
+report.output_report
+```
+
+- The `Strategy Pattern` does have one thing in common with the `Template Method Pattern` : both patterns allow us to concentrate the decision about which variation we are using in one or few places
+
+- We can get data from the `context` to the strategy by having the context object pass a reference to itself to the strategy object.
+
+- The `strategy object` can then call methods on the `context` to get at the data it needs
